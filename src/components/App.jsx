@@ -25,22 +25,3 @@ export const App = () => {
     </div>
   );
 };
-
-// export const App = () => {
-//   return (
-//     <div>
-//       <header>
-//         <nav>
-//           <NavLink to="/">Home</NavLink>
-//           <NavLink to="/movies">Movies</NavLink>
-//         </nav>
-//       </header>
-//       <main>
-//         <Routes>
-//           <Route path="/" element={<Home />} />
-//           <Route path="*" element={<NotFound />} />
-//         </Routes>
-//       </main>
-//     </div>
-//   );
-// };

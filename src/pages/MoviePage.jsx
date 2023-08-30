@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchMovieDetails } from 'api'; // You need to define a function to fetch movie details
+import { fetchMovieDetails } from 'api';
 import MovieDetails from 'components/MovieDetails/MovieDetails';
 
 const MoviePage = () => {
