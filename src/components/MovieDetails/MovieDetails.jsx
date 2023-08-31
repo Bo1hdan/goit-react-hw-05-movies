@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, Route, Routes } from 'react-router-dom';
 import Cast from 'components/Cast/Cast';
-import Reviews from 'pages/Reviews';
+import Reviews from 'components/Reviews/Reviews';
 
 const MovieDetails = ({ movie }) => {
   const { title, overview, backdrop_path, genres, vote_average, release_date } =

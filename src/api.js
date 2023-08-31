@@ -16,3 +16,13 @@ export const fetchMovieDetails = movieId => {
 export const getMovieCredits = async movieId => {
   return fetch(`${BASE_URL}3/movie/${movieId}/credits?api_key=${API_KEY}`);
 };
+
+export const getMovieReviews = async movieId => {
+  return fetch(`${BASE_URL}3/movie/${movieId}/reviews?api_key=${API_KEY}`);
+};
+
+// export const searchMoviesByName = searchWord => {
+//   return fetch(
+//     `${BASE_URL}3/movie/query=${searchWord}/reviews?api_key=${API_KEY}`
+//   );
+// };

@@ -2,6 +2,7 @@ import Home from 'pages/Home';
 import NotFound from 'pages/NotFound';
 import MoviePage from 'components/MoviePage/MoviePage';
 import { Routes, Route, NavLink } from 'react-router-dom';
+import Movies from 'pages/Movies';
 
 export const App = () => {
   return (
@@ -16,7 +17,7 @@ export const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/movies" element={<MoviePage />} />
+          <Route path="/movies" element={<Movies />} />
           {/* Define a dynamic route for movieId */}
           <Route path="/movies/:movieId/*" element={<MoviePage />} />
           <Route path="*" element={<NotFound />} />
