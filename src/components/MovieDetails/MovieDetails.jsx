@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link, Route, Routes } from 'react-router-dom';
+import Cast from 'components/Cast/Cast';
+import Reviews from 'pages/Reviews';
 
 const MovieDetails = ({ movie }) => {
   const { title, overview, backdrop_path, genres, vote_average, release_date } =
@@ -23,6 +26,21 @@ const MovieDetails = ({ movie }) => {
           <p key={genre.id}>{genre.name}</p>
         ))}
       </div>
+      <div>
+        <h3>Additional information</h3>
+        <ul>
+          <Link to="cast">
+            <li>Cast</li>
+          </Link>
+          <Link to="reviews">
+            <li>Reviews</li>
+          </Link>
+        </ul>
+      </div>
+      <Routes>
+        <Route path="cast" element={<Cast />}></Route>
+        <Route path="reviews" element={<Reviews />}></Route>
+      </Routes>
     </div>
   );
 };

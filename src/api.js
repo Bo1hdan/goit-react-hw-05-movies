@@ -12,3 +12,7 @@ export const fetchMovieDetails = movieId => {
     `${BASE_URL}3/movie/${movieId}?language=en-US&api_key=${API_KEY}`
   );
 };
+
+export const getMovieCredits = async movieId => {
+  return fetch(`${BASE_URL}3/movie/${movieId}/credits?api_key=${API_KEY}`);
+};
