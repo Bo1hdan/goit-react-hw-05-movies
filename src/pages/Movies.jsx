@@ -1,57 +1,54 @@
-// import React, { useState, useEffect } from 'react';
-// import { searchMoviesByName } from 'api';
-
-// export const Movies = () => {
-//   useEffect(() => {
-//     if (keyWord && page) {
-//       setIsLoading(true);
-//       searchImages(keyWord, page)
-//         .then(response => {
-//           if (response.ok) {
-//             return response.json();
-//           }
-//           return Promise.reject(new Error(`Nothing found for ${keyWord}`));
-//         })
-//         .then(data => {
-//           if (!data.hits.length) {
-//             alert('Nothing found');
-//           } else {
-//             setImages(prevImages => [...prevImages, ...data.hits]);
-//             setTotalImages(data.totalHits);
-//           }
-//         })
-//         .catch(error => {
-//           console.log(errorState);
-//           setErrorState(error);
-//         })
-//         .finally(() => {
-//           setIsLoading(false);
-//         });
-//     }
-//   }, [keyWord, page, errorState]);
-
-//   const onSubmit = e => {
-//     e.preventDefault();
-//     const query = e.target.elements.searchWord.value.trim().toLowerCase();
-//     if (!query.length) {
-//       alert('Please, write a search word');
-//       return;
-//     }
-
-//     setKeyWord(query);
-//     setImages([]);
-//     setPage(1);
-
-//     e.target.reset();
-//   };
-
-//   return <></>;
-// };
-// export default Movies;
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { searchMovieByKeywords } from 'api';
+import { TrendingEl } from 'components/TrendingEl/TrendingEl';
 
 const Movies = () => {
-  return <div>Hello</div>;
+  const [searchedMovies, setSearchedMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryString = searchParams.get('query');
+
+  useEffect(() => {
+    if (!queryString) return;
+
+    async function fetchSearchedMovies() {
+      try {
+        const response = await searchMovieByKeywords(queryString);
+        const data = await response.json();
+        setSearchedMovies(data.results);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    fetchSearchedMovies();
+  }, [queryString]);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const searchValue = e.currentTarget.elements.searchValue.value;
+    setSearchParams({ query: searchValue });
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="searchValue"
+          defaultValue={queryString ?? ''}
+        />
+        <button type="submit">Search</button>
+      </form>
+      {searchedMovies && searchedMovies.length > 0 && (
+        <ul>
+          {searchedMovies.map(movie => (
+            <TrendingEl key={movie.id} movie={movie} />
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 };
+
 export default Movies;
