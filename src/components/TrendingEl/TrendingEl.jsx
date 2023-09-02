@@ -7,7 +7,6 @@ export const TrendingEl = ({ movie }) => {
   const location = useLocation();
   const { id, title } = movie;
 
-  // const state = location.state || {};
   return (
     <Link state={{ from: location }} to={`/movies/${id}`}>
       <li key={id}>{title}</li>
