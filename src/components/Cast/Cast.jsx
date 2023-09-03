@@ -10,7 +10,7 @@ const Cast = () => {
     async function fetchCast() {
       try {
         const response = await getMovieCredits(movieId);
-        const data = await response.json(); // Парсимо JSON
+        const data = await response.json();
         setActors(data);
       } catch (error) {
         console.error('Error fetching movie credits:', error);
@@ -33,7 +33,7 @@ const Cast = () => {
   }
   return (
     <div>
-      {actors.cast.length > 0 &&
+      {actors.cast.length > 0 ? (
         actors.cast.map(({ name, character, profile_path }) => (
           <div key={name}>
             <img
@@ -43,7 +43,10 @@ const Cast = () => {
             <p>Name: {name}</p>
             <p>Character: {character}</p>
           </div>
-        ))}
+        ))
+      ) : (
+        <p>Cast not found.</p>
+      )}
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link, Route, Routes } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams, Link, Route, Routes, useLocation } from 'react-router-dom';
 import Cast from 'components/Cast/Cast';
 import Reviews from 'components/Reviews/Reviews';
 import { fetchMovieDetails } from 'api';
@@ -8,6 +8,8 @@ import css from 'pages/MovieDetailsPage.module.css';
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
+  const location = useLocation();
+  const backLinkRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     async function fetchMovie() {
@@ -32,7 +34,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
-      <Link to="/">Go back</Link>
+      <Link to={backLinkRef.current}>Go back</Link>
       <div className={css.mainInfoWrapper}>
         <div>
           <img
@@ -59,17 +61,18 @@ const MovieDetailsPage = () => {
       <div>
         <h3>Additional information</h3>
         <ul>
-          <Link to={`${movieId}/cast`}>
+          <Link to="cast">
             <li>Cast</li>
           </Link>
-          <Link to={`${movieId}/reviews`}>
+          <Link to="reviews">
             <li>Reviews</li>
           </Link>
         </ul>
       </div>
+
       <Routes>
-        <Route path={`${movieId}/cast`} element={<Cast />} />
-        <Route path={`${movieId}/reviews`} element={<Reviews />} />
+        <Route path="cast" element={<Cast />} />
+        <Route path="reviews" element={<Reviews />} />
       </Routes>
     </div>
   );
